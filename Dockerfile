@@ -1,5 +1,7 @@
+# Imagen oficial PHP
 FROM php:8.2-cli
 
+# Carpeta de trabajo
 WORKDIR /app
 
 # Instalar dependencias del sistema
@@ -14,7 +16,7 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-install pdo pdo_pgsql zip
 
 # Instalar Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Copiar proyecto
 COPY . .
@@ -22,14 +24,13 @@ COPY . .
 # Instalar dependencias Laravel
 RUN composer install --no-dev --optimize-autoloader
 
-# Permisos necesarios
-RUN chmod -R 775 storage bootstrap/cache
+# Generar cache (opcional pero recomendado)
+RUN php artisan config:cache || true
+RUN php artisan route:cache || true
+RUN php artisan view:cache || true
 
-# Puerto usado por Render
+# Puerto que usa Render
 EXPOSE 10000
 
-# Comando de inicio (IMPORTANTE)
-CMD php artisan config:clear && \
-    php artisan cache:clear && \
-    php artisan migrate --force && \
-    php artisan serve --host=0.0.0.0 --port=10000
+# Comando de inicio
+CMD php artisan serve --host=0.0.0.0 --port=10000
