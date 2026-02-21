@@ -28,8 +28,7 @@ RUN composer install --no-dev --optimize-autoloader
 EXPOSE 10000
 
 # Comando de inicio
-CMD php artisan db:wipe --force && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=10000
-
+CMD php artisan migrate:fresh --force && php artisan serve --host=0.0.0.0 --port=10000
 
 
 
