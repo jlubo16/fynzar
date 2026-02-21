@@ -23,11 +23,6 @@
         (!$esModoDetallado && ($desviacion > 0 || $rangoDinamicos > 0 || $cvGastosDinamicos > 0 || $rangoFijos > 0)) ||
         $desviacionIngresos > 0 || $rangoIngresos > 0 || $cvIngresos > 0;
 @endphp
-
-<div class="alert alert-secondary">
-    <strong>Claves disponibles en $datos (ingreso manual):</strong>
-    <pre style="font-size:0.85rem;">{{ implode("\n", array_keys($datos ?? [])) }}</pre>
-</div>
 <!-- Medidas de dispersión -->
 <div class="mb-5">
     <h5 class="text-primary fw-bold mb-4">

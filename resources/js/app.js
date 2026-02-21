@@ -1,22 +1,55 @@
-// ===== APLICACIÓN PRINCIPAL =====
+// app/js/app.js
+
+// ===== 1. DEFINICIONES GLOBALES (ACCESIBLES DE INMEDIATO) =====
+window.showLoading = function(message = 'Procesando...') {
+    const loading = document.getElementById('global-loading');
+    if (loading) {
+        const textElement = loading.querySelector('p');
+        if (textElement) textElement.textContent = message;
+        loading.style.display = 'flex';
+    } else {
+        console.warn('⚠️ Elemento #global-loading no encontrado en el DOM.');
+    }
+};
+
+window.hideLoading = function() {
+    const loading = document.getElementById('global-loading');
+    if (loading) {
+        loading.style.display = 'none';
+    }
+};
+
+window.formatCurrency = function(amount) {
+    return new Intl.NumberFormat('es-ES', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2
+    }).format(amount);
+};
+
+window.formatPercentage = function(value) {
+    return new Intl.NumberFormat('es-ES', {
+        style: 'percent',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    }).format(value / 100);
+};
+
+// ===== 2. APLICACIÓN PRINCIPAL (ESPERA AL DOM) =====
 document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar tooltips
-    initTooltips();
+    console.log("🔄 App.js cargado. Bootstrap disponible:", typeof bootstrap !== 'undefined');
     
-    // Inicializar popovers
+    // Inicializar componentes de Bootstrap
+    initTooltips();
     initPopovers();
     
-    // Manejar formularios
+    // Manejar lógica de UI
     initForms();
-    
-    // Configurar eventos globales
     setupGlobalEvents();
-    
-    // Inicializar animaciones
     initAnimations();
 });
 
-// ===== FUNCIONES DE INICIALIZACIÓN =====
+// ===== 3. FUNCIONES DE INICIALIZACIÓN =====
 function initTooltips() {
     const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -38,7 +71,6 @@ function initPopovers() {
 }
 
 function initForms() {
-    // Validación de formularios
     const forms = document.querySelectorAll('.needs-validation');
     forms.forEach(form => {
         form.addEventListener('submit', event => {
@@ -50,7 +82,7 @@ function initForms() {
         }, false);
     });
 
-    // Limpiar validación al cambiar
+    // Feedback visual en tiempo real
     forms.forEach(form => {
         const inputs = form.querySelectorAll('input, select, textarea');
         inputs.forEach(input => {
@@ -68,27 +100,12 @@ function initForms() {
 }
 
 function setupGlobalEvents() {
-    // Mostrar/ocultar loading global
-    window.showLoading = function(message = 'Procesando...') {
-        const loading = document.getElementById('global-loading');
-        if (loading) {
-            loading.querySelector('p').textContent = message;
-            loading.style.display = 'flex';
-        }
-    };
-
-    window.hideLoading = function() {
-        const loading = document.getElementById('global-loading');
-        if (loading) {
-            loading.style.display = 'none';
-        }
-    };
-
-    // Manejar envío de formularios
+    // Manejar envío de formularios para mostrar loading
     document.addEventListener('submit', function(e) {
         const form = e.target;
+        // Solo mostrar loading en formularios POST que no tengan la clase 'no-loading'
         if (form.method === 'post' && !form.classList.contains('no-loading')) {
-            showLoading('Enviando datos...');
+            window.showLoading('Enviando datos...');
         }
     });
 
@@ -96,8 +113,12 @@ function setupGlobalEvents() {
     const alerts = document.querySelectorAll('.alert:not(.alert-permanent)');
     alerts.forEach(alert => {
         setTimeout(() => {
-            const bsAlert = new bootstrap.Alert(alert);
-            bsAlert.close();
+            try {
+                const bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            } catch (err) {
+                alert.remove(); // Fallback si bootstrap no está listo
+            }
         }, 5000);
     });
 
@@ -120,7 +141,6 @@ function setupGlobalEvents() {
 }
 
 function initAnimations() {
-    // Intersection Observer para animaciones al hacer scroll
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -135,29 +155,12 @@ function initAnimations() {
         });
     }, observerOptions);
 
-    // Observar elementos con clase 'animate-on-scroll'
     document.querySelectorAll('.animate-on-scroll').forEach(el => {
         observer.observe(el);
     });
 }
 
-// ===== FUNCIONES UTILITARIAS =====
-window.formatCurrency = function(amount) {
-    return new Intl.NumberFormat('es-ES', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 2
-    }).format(amount);
-};
-
-window.formatPercentage = function(value) {
-    return new Intl.NumberFormat('es-ES', {
-        style: 'percent',
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    }).format(value / 100);
-};
-
+// ===== 4. FUNCIONES UTILITARIAS DE WINDOW =====
 window.downloadCSV = function(data, filename) {
     const blob = new Blob([data], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
@@ -171,16 +174,14 @@ window.downloadCSV = function(data, filename) {
 window.copyToClipboard = async function(text) {
     try {
         await navigator.clipboard.writeText(text);
-        showToast('Copiado al portapapeles', 'success');
+        window.showToast('Copiado al portapapeles', 'success');
     } catch (err) {
         console.error('Error al copiar:', err);
-        showToast('Error al copiar', 'error');
+        window.showToast('Error al copiar', 'error');
     }
 };
 
-// ===== NOTIFICACIONES Y TOASTS =====
 window.showToast = function(message, type = 'info', duration = 3000) {
-    // Crear contenedor si no existe
     let container = document.getElementById('toast-container');
     if (!container) {
         container = document.createElement('div');
@@ -189,7 +190,6 @@ window.showToast = function(message, type = 'info', duration = 3000) {
         document.body.appendChild(container);
     }
 
-    // Crear toast
     const toastId = 'toast-' + Date.now();
     const toastHtml = `
         <div id="${toastId}" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -207,13 +207,10 @@ window.showToast = function(message, type = 'info', duration = 3000) {
     `;
 
     container.insertAdjacentHTML('beforeend', toastHtml);
-    
-    // Mostrar toast
     const toastEl = document.getElementById(toastId);
     const toast = new bootstrap.Toast(toastEl, { delay: duration });
     toast.show();
 
-    // Eliminar después de mostrar
     toastEl.addEventListener('hidden.bs.toast', function () {
         toastEl.remove();
     });
@@ -239,24 +236,29 @@ function getToastTitle(type) {
     return titles[type] || 'Información';
 }
 
-// ===== MANEJO DE ERRORES GLOBALES =====
+// ===== 5. MANEJO DE ERRORES GLOBALES =====
 window.addEventListener('error', function(e) {
-    console.error('Error global:', e.error);
-    showToast('Ha ocurrido un error inesperado', 'error');
+    console.error('🔴 Error global capturado:', e.error);
+    // Solo mostramos toast si la función ya existe
+    if (typeof window.showToast === 'function') {
+        window.showToast('Ha ocurrido un error inesperado', 'error');
+    }
 });
 
 window.addEventListener('unhandledrejection', function(e) {
-    console.error('Promise rechazada:', e.reason);
-    showToast('Error en la operación', 'error');
+    console.error('🟠 Promise rechazada:', e.reason);
+    if (typeof window.showToast === 'function') {
+        window.showToast('Error en la operación asíncrona', 'error');
+    }
 });
 
-// ===== EXPORTAR FUNCIONES GLOBALES =====
+// ===== 6. EXPORTAR OBJETO APP =====
 window.App = {
-    showLoading,
-    hideLoading,
-    showToast,
-    formatCurrency,
-    formatPercentage,
-    downloadCSV,
-    copyToClipboard
+    showLoading: window.showLoading,
+    hideLoading: window.hideLoading,
+    showToast: window.showToast,
+    formatCurrency: window.formatCurrency,
+    formatPercentage: window.formatPercentage,
+    downloadCSV: window.downloadCSV,
+    copyToClipboard: window.copyToClipboard
 };
