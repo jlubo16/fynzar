@@ -14,6 +14,9 @@ use App\Services\Finanzas\Reportes\TendenciasReporte;
 use App\Services\Finanzas\Reportes\ResumenReporte;
 use App\Services\Finanzas\ReporteService;
 
+use Illuminate\Support\Facades\URL; // <--- 1. AÑADE ESTA LÍNEA
+// ... (tus otros imports se quedan igual)
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -21,18 +24,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // =============================================
-        // SERVICIOS BASE (SINGLETONS)
-        // =============================================
+        // ... (todo tu código de singletons se queda exactamente igual)
         $this->app->singleton(EstadisticaService::class);
         $this->app->singleton(AnalisisRapidoService::class);
         $this->app->singleton(CSVImportService::class);
         $this->app->singleton(AnalisisDetalladoService::class);
 
-        // =============================================
-        // NUEVOS REPORTES (con dependencias)
-        // =============================================
-        // Registrar FrecuenciaReporte con sus dependencias
         $this->app->singleton(FrecuenciaReporte::class, function ($app) {
             return new FrecuenciaReporte(
                 $app->make(EstadisticaService::class),
@@ -40,7 +37,6 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
-        // Registrar ComparativoReporte con sus dependencias
         $this->app->singleton(ComparativoReporte::class, function ($app) {
             return new ComparativoReporte(
                 $app->make(EstadisticaService::class),
@@ -48,7 +44,6 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
-        // Registrar TendenciasReporte con sus dependencias
         $this->app->singleton(TendenciasReporte::class, function ($app) {
             return new TendenciasReporte(
                 $app->make(EstadisticaService::class),
@@ -56,7 +51,6 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
-        // Registrar ResumenReporte con sus dependencias
         $this->app->singleton(ResumenReporte::class, function ($app) {
             return new ResumenReporte(
                 $app->make(EstadisticaService::class),
@@ -64,9 +58,6 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
-        // =============================================
-        // REPOSITE SERVICE (ORQUESTADOR)
-        // =============================================
         $this->app->singleton(ReporteService::class, function ($app) {
             return new ReporteService(
                 $app->make(FrecuenciaReporte::class),
@@ -82,6 +73,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // 2. FORZAR HTTPS EN PRODUCCIÓN
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
     }
 }
