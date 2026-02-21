@@ -24,17 +24,11 @@ COPY . .
 # Instalar dependencias Laravel
 RUN composer install --no-dev --optimize-autoloader
 
-# Generar cache (opcional pero recomendado)
-RUN php artisan config:cache || true
-RUN php artisan route:cache || true
-RUN php artisan view:cache || true
-
 # Puerto que usa Render
 EXPOSE 10000
 
 # Comando de inicio
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=10000
-
+CMD php artisan config:clear && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=10000
 
 
 
