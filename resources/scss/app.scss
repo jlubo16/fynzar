@@ -1,0 +1,152 @@
+/* ========================================
+   BOOTSTRAP - CONFIGURACIÓN PERSONALIZADA
+   ======================================== */
+
+/* 1️⃣ PRIMERO: Funciones de Bootstrap */
+@import "bootstrap/scss/functions";
+
+/* 2️⃣ CONFIGURACIÓN GLOBAL */
+$enable-important-utilities: false;
+$enable-dark-mode: false;
+
+/* 3️⃣ Tus variables SCSS */
+@import "variables";  // ← ESTE ES TU ARCHIVO CON LAS CLASES .text-primary, etc.
+
+/* 4️⃣ Variables de Bootstrap */
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+
+/* 5️⃣ Importar utilities para modificarlas */
+@import "bootstrap/scss/utilities";
+
+/* 6️⃣ SOBRESCRIBIR COMPLETAMENTE las utilidades de color */
+$utilities: map-merge(
+  $utilities,
+  (
+    // Eliminar TODAS las utilidades de Bootstrap
+    "color": null,
+    "text-color": null,
+    "text-opacity": null,
+    "background-color": null,
+    "bg-opacity": null,
+    "bg-gradient": null,
+  )
+);
+
+/* 7️⃣ IMPORTANTE: Desactivar root colors */
+:root {
+  --bs-primary-rgb: 76, 130, 46 !important;
+  --bs-success-rgb: 40, 167, 69 !important;
+  --bs-warning-rgb: 248, 150, 30 !important;
+  --bs-danger-rgb: 220, 53, 69 !important;
+  --bs-info-rgb: 23, 162, 184 !important;
+  
+  --bs-text-opacity: 1;
+  --bs-bg-opacity: 1;
+}
+
+/* 8️⃣ Importar el resto de Bootstrap */
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/dropdown";
+@import "bootstrap/scss/button-group";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/card";
+@import "bootstrap/scss/accordion";
+@import "bootstrap/scss/breadcrumb";
+@import "bootstrap/scss/pagination";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/progress";
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/close";
+@import "bootstrap/scss/toasts";
+@import "bootstrap/scss/modal";
+@import "bootstrap/scss/tooltip";
+@import "bootstrap/scss/popover";
+@import "bootstrap/scss/carousel";
+@import "bootstrap/scss/spinners";
+@import "bootstrap/scss/offcanvas";
+@import "bootstrap/scss/placeholders";
+@import "bootstrap/scss/helpers";
+
+/* 9️⃣ Utilities API (vacía porque eliminamos todo) */
+@import "bootstrap/scss/utilities/api";
+
+/* ========================================
+   TUS ESTILOS PERSONALIZADOS
+   ======================================== */
+@import "navbar";
+@import "main";
+@import "footer";
+@import "welcome";
+
+/* ========================================
+   PERSONALIZACIÓN DE COMPONENTES BOOTSTRAP
+   ======================================== */
+
+// Botón primary con tus colores
+.btn-primary {
+  --bs-btn-bg: var(--primary-green);
+  --bs-btn-border-color: var(--primary-green);
+  --bs-btn-hover-bg: var(--primary-dark);
+  --bs-btn-hover-border-color: var(--primary-dark);
+  --bs-btn-active-bg: var(--primary-dark);
+}
+
+// Botón outline con tus colores
+.btn-outline-primary {
+  --bs-btn-color: var(--primary-green);
+  --bs-btn-border-color: var(--primary-green);
+  --bs-btn-hover-bg: var(--primary-green);
+  --bs-btn-hover-border-color: var(--primary-green);
+  --bs-btn-active-bg: var(--primary-green);
+}
+
+// Badge con tu dorado
+.badge.bg-gold {
+  background-color: var(--accent-gold) !important;
+  color: #000;
+}
+
+// ===== ALERTAS CORREGIDAS =====
+.alert-success {
+  --bs-alert-color: var(--primary-dark);
+  --bs-alert-bg: var(--primary-light);
+  --bs-alert-border-color: var(--primary-green);
+}
+
+.alert-info {
+  --bs-alert-color: var(--text-primary);
+  --bs-alert-bg: rgba(23, 162, 184, 0.1);  // Usando --info-color (23,162,184)
+  --bs-alert-border-color: var(--info-color);
+}
+
+.alert-warning {
+  --bs-alert-color: var(--text-primary);
+  --bs-alert-bg: rgba(248, 150, 30, 0.1);  // Usando --warning-color
+  --bs-alert-border-color: var(--warning-color);
+}
+
+.alert-danger {
+  --bs-alert-color: var(--text-primary);
+  --bs-alert-bg: rgba(220, 53, 69, 0.1);    // Usando --danger-color
+  --bs-alert-border-color: var(--danger-color);
+}
+
+.alert-gold {
+  --bs-alert-color: #5e4e1e;
+  --bs-alert-bg: var(--accent-gold-light);
+  --bs-alert-border-color: var(--accent-gold);
+}

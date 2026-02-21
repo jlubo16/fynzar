@@ -1,0 +1,371 @@
+/* ============================================================================
+   COMPONENTE: NAVBAR MINIMALISTA
+   Adaptado a la paleta verde-dorado
+   ============================================================================ */
+
+/* ===== VARIABLES LOCALES DEL NAVBAR ===== */
+:root {
+    /* Sobrescribimos solo las variables específicas del navbar */
+    --nav-bg: rgba(255, 255, 255, 0.97);
+    --nav-border: rgba(76, 130, 46, 0.15);        /* Verde con transparencia */
+    --nav-text: var(--text-primary);               /* #2d3748 de tus variables */
+    --nav-accent: var(--primary-green);            /* #4C822E - Verde principal */
+    --nav-hover: var(--primary-dark);               /* #387336 - Verde oscuro */
+    --nav-transition: var(--transition-base);       /* all 0.3s ease */
+}
+
+/* ===== NAVBAR PRINCIPAL ===== */
+.navbar-minimal {
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--nav-border);
+    padding: 1rem 0;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: var(--nav-transition);
+}
+
+.navbar-minimal.scrolled {
+    padding: 0.7rem 0;
+    box-shadow: var(--shadow-md);                  /* Usando tu sombra */
+}
+
+/* ===== LOGO MINIMALISTA ===== */
+.logo-minimal {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    padding: 0.5rem 0;
+}
+
+.logo-symbol {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--nav-accent);                      /* Verde principal */
+    transition: var(--nav-transition);
+}
+
+.logo-text {
+    font-size: 1.4rem;
+    font-weight: var(--font-weight-light);         /* 300 de tus variables */
+    letter-spacing: var(--letter-spacing-tight);   /* -0.5px */
+    color: var(--nav-text);
+    transition: var(--nav-transition);
+}
+
+.logo-accent {
+    font-weight: var(--font-weight-bold);          /* 700 */
+    color: var(--nav-accent);                      /* Verde principal */
+}
+
+.logo-minimal:hover .logo-symbol {
+    transform: rotate(45deg);
+}
+
+.logo-minimal:hover .logo-text {
+    letter-spacing: 0px;
+}
+
+/* ===== TOGGLER MINIMAL ===== */
+.minimal-toggler {
+    border: none;
+    background: transparent;
+    padding: 8px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--nav-transition);
+}
+
+.toggler-icon {
+    width: 20px;
+    height: 2px;
+    background: var(--nav-text);
+    position: relative;
+    transition: var(--nav-transition);
+}
+
+.toggler-icon::before,
+.toggler-icon::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background: var(--nav-text);
+    left: 0;
+    transition: var(--nav-transition);
+}
+
+.toggler-icon::before {
+    top: -6px;
+}
+
+.toggler-icon::after {
+    top: 6px;
+}
+
+.minimal-toggler[aria-expanded="true"] .toggler-icon {
+    background: transparent;
+}
+
+.minimal-toggler[aria-expanded="true"] .toggler-icon::before {
+    transform: rotate(45deg);
+    top: 0;
+    background: var(--nav-accent);                  /* Verde al abrir */
+}
+
+.minimal-toggler[aria-expanded="true"] .toggler-icon::after {
+    transform: rotate(-45deg);
+    top: 0;
+    background: var(--nav-accent);                  /* Verde al abrir */
+}
+
+.minimal-toggler:hover .toggler-icon {
+    background: var(--nav-accent);                   /* Verde al hover */
+}
+
+.minimal-toggler:hover .toggler-icon::before,
+.minimal-toggler:hover .toggler-icon::after {
+    background: var(--nav-accent);                   /* Verde al hover */
+}
+
+/* ===== NAV LINKS MINIMALISTAS ===== */
+.nav-link-minimal {
+    position: relative;
+    padding: 0.8rem 1.2rem !important;
+    color: var(--nav-text) !important;
+    font-weight: var(--font-weight-normal);         /* 400 */
+    font-size: var(--font-size-base);               /* 0.95rem */
+    letter-spacing: var(--letter-spacing-wide);      /* 0.5px */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--nav-transition);
+    text-decoration: none !important;
+}
+
+.nav-dot {
+    width: 6px;
+    height: 6px;
+    background: transparent;
+    border-radius: 50%;
+    transition: var(--nav-transition);
+    position: relative;
+}
+
+.nav-dot::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--nav-accent);                  /* Verde principal */
+    opacity: 0;
+    transform: scale(0);
+    transition: var(--nav-transition);
+}
+
+.nav-link-minimal:hover,
+.nav-link-minimal.active {
+    color: var(--nav-accent) !important;            /* Verde al hover/activo */
+}
+
+.nav-link-minimal:hover .nav-dot::before,
+.nav-link-minimal.active .nav-dot::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.nav-label {
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-label::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--nav-accent);                  /* Verde principal */
+    transition: width 0.3s ease;
+}
+
+.nav-link-minimal:hover .nav-label::after,
+.nav-link-minimal.active .nav-label::after {
+    width: 100%;
+}
+
+/* ===== SPACER ===== */
+.nav-spacer {
+    width: 1px;
+    height: 24px;
+    background: var(--nav-border);                  /* Verde con transparencia */
+    margin: 0 1.5rem;
+    align-self: center;
+}
+
+/* ===== BOTÓN CTA MINIMALISTA ===== */
+.btn-minimal-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.8rem 1.5rem;
+    background: transparent;
+    border: 1px solid var(--nav-border);            /* Verde con transparencia */
+    border-radius: var(--border-radius-md);         /* 8px de tus variables */
+    color: var(--nav-text);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);         /* 500 */
+    font-size: var(--font-size-base);               /* 0.95rem */
+    transition: var(--nav-transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-minimal-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--green-gradient);              /* Tu gradiente verde */
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+}
+
+.btn-minimal-cta:hover {
+    color: white;
+    border-color: var(--nav-accent);                /* Verde principal */
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-primary);               /* Tu sombra verde */
+}
+
+.btn-minimal-cta:hover::before {
+    transform: translateX(0);
+}
+
+.btn-arrow {
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+.btn-minimal-cta:hover .btn-arrow {
+    transform: translateX(4px);
+}
+
+/* ===== LÍNEA INFERIOR ===== */
+.nav-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--nav-accent), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.navbar-minimal.scrolled .nav-line {
+    opacity: 0.3;                                    /* Sutil línea verde */
+}
+
+/* ===== ESPACIO OFFSET ===== */
+.nav-offset {
+    height: var(--nav-height);                       /* 76px de tus variables */
+}
+
+/* ===== DROPDOWN MENU (si lo necesitas) ===== */
+.dropdown-minimal {
+    border: 1px solid var(--nav-border);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: 0.5rem 0;
+}
+
+.dropdown-item-minimal {
+    color: var(--text-secondary);
+    padding: 0.6rem 1.5rem;
+    transition: var(--transition-base);
+}
+
+.dropdown-item-minimal:hover {
+    background: var(--primary-light);                /* Verde claro de hover */
+    color: var(--primary-green);
+    padding-left: 2rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background: var(--nav-bg);
+        border-radius: var(--border-radius-lg);      /* 10px */
+        padding: var(--spacing-4);                   /* 1rem */
+        margin-top: var(--spacing-4);                /* 1rem */
+        border: 1px solid var(--nav-border);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .nav-spacer {
+        width: 100%;
+        height: 1px;
+        margin: 0.8rem 0;
+    }
+
+    .btn-minimal-cta {
+        margin-top: 0.5rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .nav-link-minimal {
+        padding: 0.8rem 0 !important;
+        border-bottom: 1px solid var(--nav-border);
+    }
+
+    .nav-link-minimal:last-child {
+        border-bottom: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .logo-text {
+        font-size: 1.2rem;
+    }
+    
+    .logo-symbol {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+/* ===== UTILIDADES ESPECÍFICAS DEL NAVBAR ===== */
+.navbar-minimal .badge {
+    background: var(--gold-gradient);                /* Dorado para notificaciones */
+    color: var(--text-primary);
+    font-size: var(--font-size-xs);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--border-radius-full);
+}
+
+.navbar-minimal .search-input {
+    border: 1px solid var(--nav-border);
+    border-radius: var(--border-radius-full);
+    padding: 0.5rem 1rem;
+    transition: var(--transition-base);
+}
+
+.navbar-minimal .search-input:focus {
+    border-color: var(--nav-accent);
+    box-shadow: 0 0 0 3px rgba(76, 130, 46, 0.1);
+    outline: none;
+}

@@ -1,0 +1,214 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary);
+    line-height: var(--line-height-base);
+    color: var(--text-primary);
+    background: var(--bg-light);
+    min-height: 100vh;
+}
+
+/* ============================================================================
+   COMPONENTES REUTILIZABLES (los que NO tienes en archivos separados)
+   - Estos los puedes dejar aquí o crear archivos específicos después
+   ============================================================================ */
+
+.card {
+    background: var(--card-bg);
+    border: var(--card-border);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    transition: var(--transition-base);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+.card-header {
+    border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+    font-weight: var(--font-weight-semibold);
+    background: var(--green-gradient);
+    color: white;
+    padding: var(--spacing-4);
+}
+
+/* Botones */
+.btn {
+    border-radius: var(--btn-radius);
+    padding: var(--btn-padding-y) var(--btn-padding-x);
+    font-weight: var(--btn-font-weight);
+    transition: var(--transition-smooth);
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--green-gradient);
+    color: white;
+}
+
+.btn-success {
+    background: var(--success-gradient);
+    color: white;
+}
+
+.btn-warning {
+    background: var(--warning-gradient);
+    color: var(--text-primary);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Loading spinner */
+.loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.92);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: var(--z-modal);
+    backdrop-filter: blur(6px);
+}
+
+.spinner-border {
+    width: 4rem;
+    height: 4rem;
+    border-width: 0.3em;
+    border-top-color: var(--primary-green) !important;
+}
+
+/* Formularios */
+.form-control,
+.form-select {
+    border-radius: var(--border-radius-md);
+    border: var(--border-width-thin) solid var(--input-border);
+    padding: var(--input-padding);
+    transition: var(--transition-base);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--input-border-focus);
+    box-shadow: 0 0 0 0.25rem var(--input-shadow-focus);
+    outline: none;
+}
+
+.input-group-text {
+    border-radius: var(--border-radius-md) 0 0 var(--border-radius-md);
+    background: var(--primary-light);
+    border: var(--border-width-thin) solid var(--border-light);
+}
+
+/* Tablas */
+.table {
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+}
+
+.table thead th {
+    background: var(--table-header-bg);
+    color: var(--table-header-color);
+    border: none;
+    font-weight: var(--font-weight-semibold);
+}
+
+.table tbody tr:hover {
+    background: var(--table-row-hover);
+}
+
+/* Stats cards */
+.stat-card {
+    border-left: 5px solid;
+    padding: var(--spacing-4);
+    background: var(--surface-white);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.stat-card.income    { border-left-color: var(--primary-green); }
+.stat-card.expenses  { border-left-color: var(--warning-color); }
+.stat-card.savings   { border-left-color: var(--success-color); }
+
+/* Charts */
+.chart-container {
+    position: relative;
+    height: var(--chart-height);
+    width: 100%;
+    padding: var(--chart-padding);
+    background: var(--chart-bg);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+/* Modal */
+.modal-content {
+    border-radius: var(--border-radius-lg);
+    border: none;
+    box-shadow: var(--shadow-xl);
+}
+
+.modal-header {
+    background: var(--green-gradient);
+    color: white;
+    border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+}
+
+/* Animación simple */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Utility classes */
+.text-gradient {
+    background: var(--green-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.shadow-soft {
+    box-shadow: var(--shadow-sm);
+}
+
+.hover-lift {
+    transition: var(--transition-base);
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--primary-light);
+    border-radius: var(--border-radius-md);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--green-gradient);
+    border-radius: var(--border-radius-md);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}

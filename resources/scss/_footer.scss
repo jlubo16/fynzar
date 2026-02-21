@@ -1,0 +1,316 @@
+/* ============================================================================
+   COMPONENTE: FOOTER - Adaptado a tu paleta verde-dorado
+   ============================================================================ */
+
+:root {
+    /* Variables específicas del footer (sobreescriben las globales si es necesario) */
+    --footer-bg: #1a2e1a;
+    --footer-text: #e0e0e0;
+    --footer-text-light: #a8c3a8;
+    --footer-border: rgba(76, 130, 46, 0.2);
+    --footer-accent: var(--accent-gold);
+    --footer-hover: #ffffff;
+}
+
+.footer-minimal {
+    background: var(--footer-bg);
+    color: var(--footer-text);
+    padding: 4rem 0 2rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+/* ===== CONTENIDO PRINCIPAL ===== */
+.footer-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+/* ===== LOGO ===== */
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--footer-text);
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: -0.5px;
+    transition: all 0.3s ease;
+    width: fit-content;
+}
+
+.footer-logo:hover {
+    color: var(--footer-hover);
+    transform: translateX(5px);
+}
+
+.logo-svg {
+    color: var(--footer-accent);
+    transition: transform 0.3s ease;
+}
+
+.footer-logo:hover .logo-svg {
+    transform: rotate(45deg);
+}
+
+.logo-accent {
+    font-weight: 700;
+    color: var(--footer-accent);
+}
+
+.footer-tagline {
+    color: var(--footer-text-light);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    max-width: 300px;
+    margin-top: 0.5rem;
+}
+
+/* ===== ENLACES ===== */
+.footer-heading {
+    color: var(--footer-hover);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.footer-heading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background: var(--footer-accent); /* Dorado */
+    border-radius: 1px;
+}
+
+.link-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.footer-link {
+    color: var(--footer-text-light);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    position: relative;
+    padding-left: 0;
+    display: inline-block;
+}
+
+.footer-link::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--footer-accent); /* Dorado */
+    transition: width 0.3s ease;
+}
+
+.footer-link:hover {
+    color: var(--footer-hover);
+    padding-left: 8px;
+}
+
+.footer-link:hover::before {
+    width: 100%;
+}
+
+/* ===== CONTACTO ===== */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--footer-text-light);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+    color: var(--footer-hover);
+}
+
+.contact-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* ===== DIVISOR ===== */
+.footer-divider {
+    height: 1px;
+    background: var(--footer-border);
+    margin: 2rem 0;
+    position: relative;
+}
+
+.footer-divider::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 2px;
+    background: var(--footer-accent); /* Dorado */
+    border-radius: 1px;
+}
+
+/* ===== BOTTOM SECTION ===== */
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+}
+
+/* ===== REDES SOCIALES ===== */
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-link {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--footer-border);
+    border-radius: 50%;
+    color: var(--footer-text-light);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    color: var(--footer-hover);
+    border-color: var(--footer-accent); /* Dorado */
+    background: rgba(191, 174, 86, 0.1); /* Dorado con transparencia */
+    transform: translateY(-2px);
+}
+
+/* ===== COPYRIGHT ===== */
+.copyright {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--footer-text-light);
+    font-size: 0.9rem;
+}
+
+.copyright-sep {
+    opacity: 0.5;
+}
+
+/* ===== BOTÓN CTA ===== */
+.footer-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: 1px solid var(--footer-border);
+    border-radius: 8px;
+    color: var(--footer-text);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.footer-btn:hover {
+    background: var(--footer-accent); /* Dorado */
+    border-color: var(--footer-accent); /* Dorado */
+    color: var(--footer-bg); /* Texto oscuro para contraste */
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-gold); /* Usando tu sombra dorada */
+}
+
+.footer-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.footer-btn:hover svg {
+    transform: translateX(4px);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+    .footer-main {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .footer-main {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .footer-minimal {
+        padding: 3rem 0 2rem;
+    }
+    
+    .footer-heading {
+        margin-bottom: 1rem;
+    }
+    
+    .link-list {
+        gap: 0.5rem;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+    
+    .copyright {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .copyright-sep {
+        display: none;
+    }
+}
+
+/* ===== ANIMACIÓN SUAVE ===== */
+.footer-minimal * {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
